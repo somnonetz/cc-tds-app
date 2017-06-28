@@ -19,21 +19,23 @@ def xnat_http(connector_access, local_input_file):
     zip_content_path = os.path.join(download_path, 'zip_content')
     os.mkdir(zip_content_path)
 
-    rest_url = connector_access['rest_url']
+    xnat_url = connector_access['xnat_url']
     project = connector_access['project']
     subject = connector_access['subject']
     session = connector_access['session']
     scan = connector_access['scan']
     resource = connector_access['resource']
+    auth = helper.auth(connector_access.get('auth'))
+    ssl_verify = connector_access.get('ssl_verify', True)
 
-    url = '{}/projects/{}/subjects/{}/experiments/{}/scans/{}/resources/{}/files?format=zip'.format(
-        rest_url, project, subject, session, scan, resource
+    url = '{}/REST/projects/{}/subjects/{}/experiments/{}/scans/{}/resources/{}/files?format=zip'.format(
+        xnat_url.rstrip('/'), project, subject, session, scan, resource
     )
 
     r = requests.get(
         url,
-        auth=helper.auth(connector_access.get('auth')),
-        verify=connector_access.get('ssl_verify', True),
+        auth=auth,
+        verify=ssl_verify,
         stream=True
     )
     r.raise_for_status()
@@ -43,6 +45,12 @@ def xnat_http(connector_access, local_input_file):
             if chunk:
                 f.write(chunk)
     r.raise_for_status()
+
+    requests.delete(
+        '{}/data/JSESSION'.format(xnat_url),
+        cookies=r.cookies,
+        verify=ssl_verify
+    )
 
     z = zipfile.ZipFile(zip_file_path, 'r')
     z.extractall(zip_content_path)
