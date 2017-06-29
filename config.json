@@ -1,9 +1,9 @@
 {
    "application_command": "python3 /root/tds_app.py",
    "local_input_files": [
-       {"dir": "/root/input_files", "name": "polysomnography.edf"}
+       {"dir": "/root/input_files", "name": "psg.edf"}
    ],
    "local_result_files": {
-       "tds": {"dir": "/root/result_files", "name": "tds.csv", "optional": false}
+       "tds": {"dir": "/root", "name": "psg_getTDS.mat", "optional": false}
    }
 }

@@ -3,7 +3,7 @@ import json
 from subprocess import call
 
 MATLAB_HOME = '/usr/local/MATLAB/MATLAB_Runtime/v85'
-DATA_FILE_PATH = '/root/input_files/polysomnography.edf'
+DATA_FILE_PATH = '/root/input_files/psg.edf'
 MONTAGE_FILE_PATH = '/root/montage.txt'
 
 command = ['bash', '/root/run_sn_TDS.sh', MATLAB_HOME, 'data', DATA_FILE_PATH]
@@ -20,7 +20,7 @@ if montage:
         for channel_type in montage:
             print(channel_type, file=f)
 
-    command += ['montage_filepath', MONTAGE_FILE_PATH]
+    command += ['montage_filename', MONTAGE_FILE_PATH]
 
 return_code = call(command)
 
