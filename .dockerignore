@@ -3,3 +3,4 @@
 !config.json
 !tds_app.py
 !custom_downloaders.py
+!custom_uploaders.py
