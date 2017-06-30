@@ -13,17 +13,22 @@ def xnat_http(connector_access, local_result_file, meta_data):
     project = connector_access['project']
     subject = connector_access['subject']
     session = connector_access['session']
-    resource_type = connector_access['resource_type']
+    container_type = connector_access['container_type']
+    container = connector_access['container']
+    resource = connector_access.get('resource', 'OTHER')
     xsi_type = connector_access['xsi_type']
     file_name = connector_access['file_name']
     auth = helper.auth(connector_access.get('auth'))
     ssl_verify = connector_access.get('ssl_verify', True)
 
-    if resource_type not in ['scans', 'reconstructions', 'assessors']:
-        raise Exception('Invalid resource_type: {}'.format(resource_type))
+    container_types = ['scans', 'reconstructions', 'assessors']
+    if container_type not in container_types:
+        raise Exception('container_type must be one of {}. Given container_type is: {}'.format(
+            ', '.join(container_types), container_type)
+        )
 
-    base_url = '{}/REST/projects/{}/subjects/{}/experiments/{}/{}'.format(
-        xnat_url.rstrip('/'), project, subject, session, resource_type
+    base_url = '{}/REST/projects/{}/subjects/{}/experiments/{}/{}/{}'.format(
+        xnat_url.rstrip('/'), project, subject, session, container_type, container
     )
 
     r = requests.put(
@@ -35,15 +40,16 @@ def xnat_http(connector_access, local_result_file, meta_data):
 
     with open(local_file_path, 'rb') as f:
         r = requests.put(
-            '{}/resources/OTHER/files/{}?format=OTHER&content=T1_RAW&inbody=true'.format(base_url, file_name),
+            '{}/resources/{}/files/{}?format=OTHER&content=T1_RAW&inbody=true'.format(base_url, resource, file_name),
             data=f,
             cookies=r.cookies,
             verify=ssl_verify
         )
         r.raise_for_status()
 
-    requests.delete(
+    r = requests.delete(
         '{}/data/JSESSION'.format(xnat_url),
         cookies=r.cookies,
         verify=ssl_verify
     )
+    r.raise_for_status()

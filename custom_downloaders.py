@@ -23,13 +23,20 @@ def xnat_http(connector_access, local_input_file):
     project = connector_access['project']
     subject = connector_access['subject']
     session = connector_access['session']
-    scan = connector_access['scan']
+    container_type = connector_access['container_type']
+    container = connector_access['container']
     resource = connector_access['resource']
     auth = helper.auth(connector_access.get('auth'))
     ssl_verify = connector_access.get('ssl_verify', True)
 
-    url = '{}/REST/projects/{}/subjects/{}/experiments/{}/scans/{}/resources/{}/files?format=zip'.format(
-        xnat_url.rstrip('/'), project, subject, session, scan, resource
+    container_types = ['scans', 'reconstructions', 'assessors']
+    if container_type not in container_types:
+        raise Exception('container_type must be one of {}. Given container_type is: {}'.format(
+            ', '.join(container_types), container_type)
+        )
+
+    url = '{}/REST/projects/{}/subjects/{}/experiments/{}/{}/{}/resources/{}/files?format=zip'.format(
+        xnat_url.rstrip('/'), project, subject, session, container_type, container, resource
     )
 
     r = requests.get(
@@ -46,11 +53,12 @@ def xnat_http(connector_access, local_input_file):
                 f.write(chunk)
     r.raise_for_status()
 
-    requests.delete(
+    r = requests.delete(
         '{}/data/JSESSION'.format(xnat_url),
         cookies=r.cookies,
         verify=ssl_verify
     )
+    r.raise_for_status()
 
     z = zipfile.ZipFile(zip_file_path, 'r')
     z.extractall(zip_content_path)
