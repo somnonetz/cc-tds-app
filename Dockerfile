@@ -1,6 +1,6 @@
 FROM docker.io/curiouscontainers/cc-image-debian:0.11
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 xorg \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 \
 && mkdir /mcr-install \
 && curl -L https://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip > /mcr-install/installer.zip \
 && unzip /mcr-install/installer.zip -d /mcr-install \
