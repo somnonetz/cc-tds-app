@@ -14,3 +14,4 @@ COPY ./bin/linux/x86_64/R2015a/sn_TDS /root/sn_TDS
 COPY ./tds_app.py /root/tds_app.py
 COPY ./config.json /opt/config.json
 COPY ./custom_downloaders.py /opt/container_worker/custom_downloaders.py
+COPY ./custom_uploaders.py /opt/container_worker/custom_uploaders.py
