@@ -1,0 +1,5 @@
+*
+!bin
+!config.json
+!tds_app.py
+!custom_downloaders.py
