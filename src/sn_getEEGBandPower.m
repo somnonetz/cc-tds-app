@@ -27,6 +27,7 @@ function [ fpb,sbmat ] = sn_getEEGBandPower(signal,varargin)
 
 %MODIFICATION LIST:
 % Dagi (150330): debugging in frequency-band sum up
+% DK (170630): display off in spectrogram
 %------------------------------------------------------------
 %% defaults
 wl = 2;
@@ -73,7 +74,7 @@ wss = ws*sf;
 
 %get spectrogram
 %rows: frequency, columns: timeseries
-[sbmat,f] = nld_spectrogram(signal,'sr',sr,'wl',wls,'ws',wss);
+[sbmat,f] = nld_spectrogram(signal,'sr',sr,'wl',wls,'ws',wss,'dp',0);
 
 %get frequency resolution
 df = f(2);

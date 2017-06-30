@@ -35,7 +35,7 @@ function [eventrate,ep,events,lqv]  = sn_getEventRate(events,varargin)
 %OUTPUT:
 % eventrate  vector containing the event rate
 % ep event periods - difference in samples between events
-% events events in seconds
+% events
 % lqv low quality values
 
 %MODIFICATION LIST:

@@ -173,7 +173,7 @@ for i = 1:length(montage)
             %% extract frequency-powerbands
             %get matrix with powerbands
             if debug
-                disp(['fpb = sn_getEEGBandPower(signalcells{' num2str(ch_eeg) '},''wl'',' num2str(wl_sfe) ',''ws'',' num2str(ws_sfe) ',''sf'',' num2str(sfch(ch_eeg)) ');'])
+                disp(['fpb = sn_getEEGBandPower(signalcells{' num2str(i) '},''wl'',' num2str(wl_sfe) ',''ws'',' num2str(ws_sfe) ',''sf'',' num2str(sfch(i)) ');'])
             end
             [fpb,sbmat] = sn_getEEGBandPower(signalcells{i},'wl',wl_sfe,'ws',ws_sfe,'sf',sfch(i));
             % use mean band amplitude rather than power
