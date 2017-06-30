@@ -1,5 +1,5 @@
 {
-   "application_command": "python3 /root/tds_app.py",
+   "application_command": "cd /root && python3 tds_app.py",
    "local_input_files": [
        {"dir": "/root/input_files", "name": "psg.edf"}
    ],
