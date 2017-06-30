@@ -17,7 +17,7 @@ def xnat_http(connector_access, local_result_file, meta_data):
     container = connector_access['container']
     resource = connector_access.get('resource', 'OTHER')
     xsi_type = connector_access['xsi_type']
-    file_name = connector_access['file_name']
+    file = connector_access['file']
     auth = helper.auth(connector_access.get('auth'))
     ssl_verify = connector_access.get('ssl_verify', True)
 
@@ -38,18 +38,20 @@ def xnat_http(connector_access, local_result_file, meta_data):
     )
     r.raise_for_status()
 
+    cookies = r.cookies
+
     with open(local_file_path, 'rb') as f:
         r = requests.put(
-            '{}/resources/{}/files/{}?format=OTHER&content=T1_RAW&inbody=true'.format(base_url, resource, file_name),
+            '{}/resources/{}/files/{}?format=OTHER&content=T1_RAW&inbody=true'.format(base_url, resource, file),
             data=f,
-            cookies=r.cookies,
+            cookies=cookies,
             verify=ssl_verify
         )
         r.raise_for_status()
 
     r = requests.delete(
         '{}/data/JSESSION'.format(xnat_url),
-        cookies=r.cookies,
+        cookies=cookies,
         verify=ssl_verify
     )
     r.raise_for_status()

@@ -1,7 +1,5 @@
 import os
 import requests
-import tempfile
-import zipfile
 
 from container_worker import helper
 
@@ -14,11 +12,6 @@ def xnat_http(connector_access, local_input_file):
     if not os.path.exists(local_file_dir):
         os.makedirs(local_file_dir)
 
-    download_path = tempfile.mkdtemp()
-    zip_file_path = os.path.join(download_path, 'file.zip')
-    zip_content_path = os.path.join(download_path, 'zip_content')
-    os.mkdir(zip_content_path)
-
     xnat_url = connector_access['xnat_url']
     project = connector_access['project']
     subject = connector_access['subject']
@@ -26,6 +19,7 @@ def xnat_http(connector_access, local_input_file):
     container_type = connector_access['container_type']
     container = connector_access['container']
     resource = connector_access['resource']
+    file = connector_access['file']
     auth = helper.auth(connector_access.get('auth'))
     ssl_verify = connector_access.get('ssl_verify', True)
 
@@ -35,8 +29,8 @@ def xnat_http(connector_access, local_input_file):
             ', '.join(container_types), container_type)
         )
 
-    url = '{}/REST/projects/{}/subjects/{}/experiments/{}/{}/{}/resources/{}/files?format=zip'.format(
-        xnat_url.rstrip('/'), project, subject, session, container_type, container, resource
+    url = '{}/REST/projects/{}/subjects/{}/experiments/{}/{}/{}/resources/{}/files/{}'.format(
+        xnat_url.rstrip('/'), project, subject, session, container_type, container, resource, file
     )
 
     r = requests.get(
@@ -47,31 +41,17 @@ def xnat_http(connector_access, local_input_file):
     )
     r.raise_for_status()
 
-    with open(zip_file_path, 'wb') as f:
+    with open(local_file_path, 'wb') as f:
         for chunk in r.iter_content(chunk_size=4096):
             if chunk:
                 f.write(chunk)
     r.raise_for_status()
 
+    cookies = r.cookies
+
     r = requests.delete(
         '{}/data/JSESSION'.format(xnat_url),
-        cookies=r.cookies,
+        cookies=cookies,
         verify=ssl_verify
     )
     r.raise_for_status()
-
-    z = zipfile.ZipFile(zip_file_path, 'r')
-    z.extractall(zip_content_path)
-    z.close()
-
-    extracted_file_path = None
-    for dirpath, _, files in os.walk(zip_content_path):
-        for file in files:
-            if extracted_file_path:
-                raise Exception('Zip downloaded from XNAT contains more than one file.')
-            extracted_file_path = os.path.join(dirpath, file)
-
-    if not extracted_file_path:
-        raise Exception('Zip downloaded from XNAT does not contain any file.')
-
-    os.symlink(extracted_file_path, local_file_path)
