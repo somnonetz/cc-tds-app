@@ -2,25 +2,35 @@ import sys
 import json
 from subprocess import call
 
-MATLAB_HOME = '/usr/local/MATLAB/MATLAB_Runtime/v85'
-DATA_FILE_PATH = '/root/input_files/psg.edf'
-MONTAGE_FILE_PATH = '/root/montage.txt'
+command = [
+    'bash', '/root/run_sn_TDS.sh', '/usr/local/MATLAB/MATLAB_Runtime/v85',
+    'data', '/root/input_files/psg.edf',
+    'montage_filename', '/root/result_files',
+    'resultpath', '/root/montage.txt'
+]
 
-command = ['bash', '/root/run_sn_TDS.sh', MATLAB_HOME, 'data', DATA_FILE_PATH]
+possible_parameters = [
+    'wl_sfe',
+    'ws_sfe',
+    'wl_xcc',
+    'ws_xcc',
+    'wl_tds',
+    'ws_tds',
+    'mld_tds',
+    'mlf_tds',
+    'debug'
+]
 
-montage = None
+parameters = None
 try:
     parameters = json.loads(sys.argv[1])
-    montage = parameters['montage']
 except:
     pass
 
-if montage:
-    with open(MONTAGE_FILE_PATH, 'w') as f:
-        for channel_type in montage:
-            print(channel_type, file=f)
-
-    command += ['montage_filename', MONTAGE_FILE_PATH]
+if parameters:
+    for pp in possible_parameters:
+        if parameters.get(pp):
+            command += [pp, parameters[pp]]
 
 return_code = call(command)
 
