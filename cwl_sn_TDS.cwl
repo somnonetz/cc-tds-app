@@ -20,7 +20,11 @@ montage_filename:
 resultpath:
 		type: string?
 		inputBinding:
-			prefix: resultpath			
+			prefix: resultpath
+outputfilebase:
+		type: string?
+		inputBinding:
+			prefix: outputfilebase			
 wl_sfe:
 		type: int?
 		inputBinding:
@@ -51,20 +55,12 @@ mld_tds:
 			prefix: mld_tds		
 
 outputs:
-%1. Variante
-  tds:
-		type: array[]
-		inputBinding:
-		prefix: tds
-		itemSeparator: ","
-		separate: false
-		
-%2. Variante, overall array separated		
-  tds:
-		type: array
-		items:array type:int[]
-		inputBinding:
-		prefix: tds
-		itemSeparator: ","
-		separate: false	
-		
+tds_all:
+    type: File
+    outputBinding:
+      glob: "*_getTDS_all.mat"
+tds_result:
+    type: File
+    outputBinding:
+      glob: "*_getTDS.mat"
+
