@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: run_sn_TDS.sh
+baseCommand: bin/linux/x86_64/R2015a/run_sn_TDS.sh
 
 inputs:
   MCRroot:
@@ -11,12 +11,12 @@ inputs:
   data:
     type: string
     inputBinding:
-      prefix: data 
+      prefix: data
       separate: false
   montage_filename:
     type: string?
     inputBinding:
-	  prefix: montage_filename
+      prefix: montage_filename
   resultpath:
     type: string?
     inputBinding:
@@ -24,7 +24,7 @@ inputs:
   outputfilebase:
     type: string?
     inputBinding:
-      prefix: outputfilebase			
+      prefix: outputfilebase
   wl_sfe:
     type: int?
     inputBinding:
@@ -52,7 +52,7 @@ inputs:
   mld_tds:
     type: float?
     inputBinding:
-      prefix: mld_tds		
+      prefix: mld_tds
 
 outputs:
   tds_all:
@@ -63,4 +63,3 @@ outputs:
     type: File
     outputBinding:
       glob: "*_getTDS.mat"
-
