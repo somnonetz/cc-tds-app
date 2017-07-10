@@ -1,6 +1,5 @@
 .idea
 *~
-.mat
-.log
+*.mat
+*.log
 task.ipynb
-.ipynb_checkpoints

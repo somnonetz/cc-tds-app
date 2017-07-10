@@ -9,9 +9,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 \
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3
 
-COPY ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /root/run_sn_TDS.sh
-COPY ./bin/linux/x86_64/R2015a/sn_TDS /root/sn_TDS
-COPY ./tds_app.py /root/tds_app.py
+COPY ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /tds/run_sn_TDS.sh
+COPY ./bin/linux/x86_64/R2015a/sn_TDS /tds/sn_TDS
+COPY ./tds_app.py /tds/tds_app.py
 COPY ./config.json /opt/config.json
 COPY ./custom_downloaders.py /opt/container_worker/custom_downloaders.py
 COPY ./custom_uploaders.py /opt/container_worker/custom_uploaders.py
+
+ENV PATH=/tds:${PATH}
+
+RUN chmod -R 775 /tds
