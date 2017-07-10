@@ -1,20 +1,18 @@
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: bin/linux/x86_64/R2015a/run_sn_TDS.sh
+baseCommand: run_sn_TDS.sh
 
 inputs:
   MCRroot:
     type: string
     inputBinding:
-      separate: false
-      position: 1
+      position: 0
   data:
-    type: string
+    type: File
     inputBinding:
       prefix: data
-      separate: false
   montage_filename:
-    type: string?
+    type: File
     inputBinding:
       prefix: montage_filename
   resultpath:
@@ -55,11 +53,11 @@ inputs:
       prefix: mld_tds
 
 outputs:
+  tds:
+    type: File
+    outputBinding:
+      glob: "*_getTDS.mat"
   tds_all:
     type: File
     outputBinding:
       glob: "*_getTDS_all.mat"
-  tds_result:
-    type: File
-    outputBinding:
-      glob: "*_getTDS.mat"
