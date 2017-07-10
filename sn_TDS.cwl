@@ -2,10 +2,6 @@ cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: run_sn_TDS.sh
 
-hints:
-  DockerRequirement:
-    dockerPull: docker.io/curiouscontainers/cc-tds-app
-
 inputs:
   MCRroot:
     type: string
