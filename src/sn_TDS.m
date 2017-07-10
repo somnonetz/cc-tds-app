@@ -16,7 +16,7 @@ function [tds,xcc,xcl,biosignals_tds,fpb,sbmat,header,signalheader,signalcells] 
 % none
 % resultpath  directory where the results are stored, default: working
 % directory
-%outputfilebase string from which the result filenames are deduced, default filebasename of the EDF
+% outputfilebase string from which the result filenames are deduced, default filebasename of the EDF
 % wl_sfe    windowlength of signal feature extraction, default 2 secs
 % ws_sfe    windowshift of signal feature extraction, default 1 secs
 % wl_xcc windowlength of crosscorrelation in seconds, default 60;
