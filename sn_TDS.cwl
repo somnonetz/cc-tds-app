@@ -54,10 +54,10 @@ inputs:
 
 outputs:
   tds:
-    type: File
+    type: File?
     outputBinding:
       glob: "*_getTDS.mat"
   tds_all:
-    type: File
+    type: File?
     outputBinding:
       glob: "*_getTDS_all.mat"
