@@ -1,4 +1,4 @@
-FROM docker.io/curiouscontainers/cc-image-debian:0.11
+FROM docker.io/curiouscontainers/cc-image-debian:0.12
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 \
 && mkdir /mcr-install \
