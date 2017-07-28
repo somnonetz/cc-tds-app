@@ -5,7 +5,7 @@ TAG=0.12
 
 docker pull docker.io/curiouscontainers/cc-image-debian:${TAG}
 docker pull ${REGISTRY_URL}
-docker build -t ${REGISTRY_URL} .
+docker build --no-cache=true -t ${REGISTRY_URL} .
 docker push ${REGISTRY_URL}
 
 if [[ ! -z ${TAG} ]]; then
