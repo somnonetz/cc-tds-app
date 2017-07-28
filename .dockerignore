@@ -1,6 +1,6 @@
 *
 !bin
 !config.json
-!tds_app.py
-!custom_downloaders.py
-!custom_uploaders.py
+!cc_wrapper.py
+!cc_custom_downloaders.py
+!cc_custom_uploaders.py

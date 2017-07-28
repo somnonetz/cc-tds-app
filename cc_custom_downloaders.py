@@ -1,7 +1,7 @@
 import os
 import requests
 
-from container_worker import helper
+from cc_container_worker.commons import helper
 
 
 def xnat_http(connector_access, local_input_file):

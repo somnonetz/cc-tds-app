@@ -3,7 +3,7 @@ import json
 from subprocess import call
 
 command = [
-    'bash', '/tds/run_sn_TDS.sh', '/usr/local/MATLAB/MATLAB_Runtime/v85',
+    'bash', '/app/run_sn_TDS.sh', '/usr/local/MATLAB/MATLAB_Runtime/v85',
     'data', '/root/input_files/psg.edf',
     'montage_filename', '/root/input_files/montage.txt',
     'resultpath', '/root/result_files'

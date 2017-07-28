@@ -7,15 +7,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 \
 && /mcr-install/install -agreeToLicense yes -mode silent \
 && rm -r /mcr-install
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3
+COPY ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /app/run_sn_TDS.sh
+COPY ./bin/linux/x86_64/R2015a/sn_TDS /app/sn_TDS
+COPY ./cc_wrapper.py /app/cc_wrapper.py
+COPY ./cc_custom_downloaders.py /app/cc_custom_downloaders.py
+COPY ./cc_custom_uploaders.py /app/cc_custom_uploaders.py
+COPY ./config.json /root/.config/cc-container-worker/config.json
 
-COPY ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /tds/run_sn_TDS.sh
-COPY ./bin/linux/x86_64/R2015a/sn_TDS /tds/sn_TDS
-COPY ./tds_app.py /tds/tds_app.py
-COPY ./config.json /opt/config.json
-COPY ./custom_downloaders.py /opt/container_worker/custom_downloaders.py
-COPY ./custom_uploaders.py /opt/container_worker/custom_uploaders.py
+ENV PATH /app:${PATH}
+ENV PYTHONPATH /app:${PYTHONPATH}
 
-ENV PATH=/tds:${PATH}
-
-RUN chmod -R 775 /tds
+RUN chmod -R 775 /app
