@@ -5,6 +5,7 @@
     {"dir": "/root/input_files", "name": "montage.txt"}
   ],
   "local_result_files": {
-    "tds": {"dir": "/root/result_files", "name": "psg_getTDS.mat", "optional": false}
+    "tds": {"dir": "/root/result_files", "name": "psg_getTDS.mat", "optional": false},
+    "tds_all": {"dir": "/root/result_files", "name": "psg_getTDS_all.mat", "optional": false}
   }
 }
