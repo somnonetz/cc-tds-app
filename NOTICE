@@ -3,7 +3,7 @@ It is used in sleep medicine to determine the link strength between signals
 in a polysomnographic recording in EDF format.
 The Matlab TDS software is developed at CBMI (HTW Berlin - University of Applied Sciences)
 
-Copyright (C) 2017 Dagmar Krefting
+Copyright (C) 2017 Dagmar Krefting, Christoph Jansen
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
