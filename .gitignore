@@ -3,3 +3,4 @@
 *.mat
 *.log
 task.ipynb
+.vagrant/*

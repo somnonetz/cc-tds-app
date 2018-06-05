@@ -1,20 +1,29 @@
-FROM docker.io/curiouscontainers/cc-image-debian:0.12
+FROM docker.io/debian:9.3-slim
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip libxt6 \
+RUN apt-get update \
+&& apt-get install -y python3-pip \
+&& useradd -ms /bin/bash cc
+
+# install matlab mcr
+RUN apt-get install -y curl unzip libxt6 libncurses5 libxext6 \
 && mkdir /mcr-install \
 && curl -L https://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip > /mcr-install/installer.zip \
 && unzip /mcr-install/installer.zip -d /mcr-install \
 && /mcr-install/install -agreeToLicense yes -mode silent \
 && rm -r /mcr-install
 
-COPY ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /app/run_sn_TDS.sh
-COPY ./bin/linux/x86_64/R2015a/sn_TDS /app/sn_TDS
-COPY ./cc_wrapper.py /app/cc_wrapper.py
-COPY ./cc_custom_downloaders.py /app/cc_custom_downloaders.py
-COPY ./cc_custom_uploaders.py /app/cc_custom_uploaders.py
-COPY ./config.json /root/.config/cc-container-worker/config.json
+# install cc-core
+USER cc
 
-ENV PATH /app:${PATH}
-ENV PYTHONPATH /app:${PYTHONPATH}
+RUN pip3 install --no-input --user cc-core==3.2.0
 
-RUN chmod -R 775 /app
+ENV PATH="/home/cc/.local/bin:${PATH}"
+ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
+
+# install required connector
+RUN pip3 install --no-input --user red-connector-xnat
+
+## own application from repository
+ADD --chown=cc:cc ./bin/linux/x86_64/R2015a/run_sn_TDS.sh /home/cc/.local/bin/run_sn_TDS.sh
+ADD --chown=cc:cc ./bin/linux/x86_64/R2015a/sn_TDS /home/cc/.local/bin/sn_TDS
+
