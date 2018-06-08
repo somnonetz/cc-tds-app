@@ -4,51 +4,36 @@ Matlab TDS is an implementation of the Time Delay Stability algorithm, introduce
 
 The application is packaged as [Curious Containers](https://www.curious-containers.cc) compatible Docker image, available in the official [DockerHub](https://hub.docker.com/r/curiouscontainers/cc-tds-app/) registry.
 
-The repo allows you to reproduce a computer experiment we conducted for a scientific publication on physiological networks ([doi:10.1088/1361-6579/aa614e](https://doi.org/10.1088/1361-6579/aa614e)). This repo is a demonstration of how digital experiments can be stored in a reproducible way ([doi:10.1145/3147234.3148104](https://doi.org/10.1145/3147234.3148104)). As part of the demonstration, the data is protected and can only be accessed with valid user credentials. We will soon create a version with accessible data and will update this guide accordingly. If you want to try the method with free data, use the sample implementation based on a pre-built docker container (https://github.com/somnonetz/tds-experiment-cap).
+This experiment is a demonstration of how digital experiments can be stored in a reproducible way ([doi:10.1145/3147234.3148104](https://doi.org/10.1145/3147234.3148104)). The current experiment uses the freely available dataset from physiobank's [SHHS Polysomnography Database](https://physionet.org/physiobank/database/shhpsgdb/).
 
 # Getting Started
 
 ## Prerequisites
 
-You require virtualbox and vagrant.
+To execute the experiment you need a linux environment with `docker`, `python3` and `cc-faice`. The first you should get from your distro packages system, the latter you can install with  
 
-## Setup environment
+   pip3 install --user cc-faice==3.2
 
-Description for Linux
+## Run the Experiment
 
 1. Clone the repo:
 
-   git clone https://github.com/somnonetz/cc-tds-app.git
+   git clone https://github.com/somnonetz/physiological-networks-tds-experiments
+
    
-2. Move into the directory cc-tds-up
+2. Move into the directory physiological-networks-tds-experiments
    
-   cd cc-tds-up
+   cd physiological-networks-tds-experiments
    
-3. Create your vagrant box
+3. Start the faice agent
 
-   vagrant up
-   
-4. Log into the vagrant box
+    faice agent red --ignore-outputs ./red.yml
 
-   vagrant ssh
-   
-5. Change to the /vagrant directory 
+## Explore the results
 
-   [vagrant@localhost ~]$ cd /vagrant
+The results are stored in the `work` folder, called  that faice has created in your current working directory. These are matlab-archives. You presumably need a matlab-license to open and inspect them.  
 
-6. Build your docker container
 
-    [vagrant@localhost vagrant]$ docker build -t "tds_app_tawian" . 
-
-7. Install cc-faice (will be included into the vagrant provisioning soon!)
-
-   pip3 install --user cc-faice==3.2
-   
-## Run the application
-
-    [vagrant@localhost vagrant]$ faice agent red --disable-pull ./red.yml
-
-At this point you will be asked to give the user credentials. If you are super curious, please contact us, if you have a bit of patience, wait for the update, we will update the repo with accessible data soon.    
    
    
 

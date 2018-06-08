@@ -1,6 +1,0 @@
-*
-!bin
-!config.json
-!cc_wrapper.py
-!cc_custom_downloaders.py
-!cc_custom_uploaders.py

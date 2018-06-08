@@ -92,7 +92,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "physiological-networks-tds:1.0.0"
+      url: "copla/physiological-networks-tds:1.0.0"
       
 inputs:
   MCRroot: "/usr/local/MATLAB/MATLAB_Runtime/v85"
@@ -110,7 +110,7 @@ inputs:
       pyModule: "cc_core.commons.connectors.http"
       pyClass: "Http"
       access:
-        url: "https://raw.githubusercontent.com/somnonetz/tds-experiment/master/montage_0000.txt"
+        url: "https://raw.githubusercontent.com/somnonetz/physiological-networks-tds-experiments/master/montage_0000.txt"
         method: "GET"
   
 outputs:
