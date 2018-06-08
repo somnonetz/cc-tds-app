@@ -1,0 +1,11 @@
+sao2
+pulse
+eeg
+ecg
+emg
+eog
+eog
+eeg
+resp
+resp
+resp

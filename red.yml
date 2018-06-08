@@ -92,52 +92,34 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "tds_app_tawian"
+      url: "physiological-networks-tds:1.0.0"
       
 inputs:
   MCRroot: "/usr/local/MATLAB/MATLAB_Runtime/v85"
   data:
     class: "File"
     connector:
-      pyModule: "red_connector_xnat.http"
+      pyModule: "cc_core.commons.connectors.http"
       pyClass: "Http"
       access:
-        baseUrl: "https://xnat.f4.htw-berlin.de/xnat"
-        project: "siesta"
-        subject: "B0001"
-        session: "B000101"
-        containerType: "scans"
-        container: "B000101"
-        resource: "1653"
-        file: "b000101.rec"
-        auth:
-          username: "{{xnat_username}}"
-          password: "{{xnat_password}}"
+        url: "https://physionet.org/physiobank/database/shhpsgdb/0000.edf"
+        method: "GET"
   montage_filename:
     class: "File"
     connector:
       pyModule: "cc_core.commons.connectors.http"
       pyClass: "Http"
       access:
-        url: "https://raw.githubusercontent.com/somnonetz/tds-experiment/master/montage_siesta.txt"
+        url: "https://raw.githubusercontent.com/somnonetz/tds-experiment/master/montage_0000.txt"
         method: "GET"
   
 outputs:
-  tds:
+  tds: 
     class: "File"
     connector:
-      pyModule: "red_connector_xnat.http"
+      pyModule: "cc_core.commons.connectors.http"
       pyClass: "Http"
       access:
-        baseUrl: "https://xnat.f4.htw-berlin.de/xnat"
-        project: "siesta"
-        subject: "B0001"
-        session: "B000101"
-        containerType: "assessors"
-        container: "TDS"
-        xsiType: "xnat:imageAssessorData"
-        file: "psg_getTDS.mat"
-        upsert: True
-        auth:
-          username: "{{xnat_username}}"
-          password: "{{xnat_password}}"
+        url: "http://localhost:5000/0000_tds.mat"
+        method: "POST"
+  
