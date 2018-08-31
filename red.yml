@@ -92,7 +92,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "copla/physiological-networks-tds:5.2.2"
+      url: "docker.io/copla/physiological-networks-tds:5.2.2"
       
 inputs:
   MCRroot: "/usr/local/MATLAB/MATLAB_Runtime/v85"
