@@ -4,3 +4,4 @@
 *.log
 task.ipynb
 .vagrant/*
+/work
