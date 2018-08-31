@@ -26,7 +26,7 @@ To execute the experiment you need a Linux environment with Docker, Python3 and 
    
 3. Start the faice agent
 
-    faice agent red --ignore-outputs ./red.yml
+    faice agent red ./red.yml
 
 ## Explore the results
 

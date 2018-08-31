@@ -112,14 +112,3 @@ inputs:
       access:
         url: "https://raw.githubusercontent.com/somnonetz/physiological-networks-tds-experiments/master/montage_0000.txt"
         method: "GET"
-  
-outputs:
-  tds: 
-    class: "File"
-    connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
-      access:
-        url: "http://localhost:5000/0000_tds.mat"
-        method: "POST"
-  
