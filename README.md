@@ -10,16 +10,15 @@ This experiment is a demonstration of how digital experiments can be stored in a
 
 ## Prerequisites
 
-To execute the experiment you need a linux environment with `docker`, `python3` and `cc-faice`. The first you should get from your distro packages system, the latter you can install with  
+To execute the experiment you need a Linux environment with Docker, Python3 and CC-FAICE. See [CC-FAICE](https://www.curious-containers.cc/cc-faice.html) in the Curious Containers documentation for detailed installation instructions.
 
-   pip3 install --user cc-faice==3.2
+   pip3 install --user cc-faice==5.2.0
 
 ## Run the Experiment
 
 1. Clone the repo:
 
    git clone https://github.com/somnonetz/physiological-networks-tds-experiments
-
    
 2. Move into the directory physiological-networks-tds-experiments
    

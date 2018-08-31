@@ -1,4 +1,4 @@
-redVersion: "3"
+redVersion: "5"
 cli:
   cwlVersion: v1.0
   class: CommandLineTool
@@ -92,7 +92,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "copla/physiological-networks-tds:1.0.0"
+      url: "copla/physiological-networks-tds:5.2.2"
       
 inputs:
   MCRroot: "/usr/local/MATLAB/MATLAB_Runtime/v85"
