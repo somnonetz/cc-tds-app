@@ -15,7 +15,7 @@ RUN apt-get install -y curl unzip libxt6 libncurses5 libxext6 \
 # install cc-core
 USER cc
 
-RUN pip3 install --no-input --user cc-core==5.2.2
+RUN pip3 install --no-input --user cc-core==5.3.2
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"

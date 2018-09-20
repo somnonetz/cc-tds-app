@@ -12,7 +12,9 @@ This experiment is a demonstration of how digital experiments can be stored in a
 
 To execute the experiment you need a Linux environment with Docker, Python3 and CC-FAICE. See [CC-FAICE](https://www.curious-containers.cc/cc-faice.html) in the Curious Containers documentation for detailed installation instructions.
 
-   pip3 install --user cc-faice==5.2
+```bash
+pip3 install --user --upgrade "cc-faice>=5.3.1,<5.4"
+```
 
 ## Run the Experiment
 
