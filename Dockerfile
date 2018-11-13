@@ -1,4 +1,4 @@
-FROM docker.io/debian:9.3-slim
+FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \
 && apt-get install -y python3-pip \
@@ -15,7 +15,7 @@ RUN apt-get install -y curl unzip libxt6 libncurses5 libxext6 \
 # install cc-core
 USER cc
 
-RUN pip3 install --no-input --user cc-core==5.3.2
+RUN pip3 install --no-input --user cc-core==5.4.0
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
